@@ -4,10 +4,6 @@
 @implementation TrackingTransparency
 RCT_EXPORT_MODULE()
 
-+ (NSString *)moduleName {
-    return @"TrackingTransparency";
-}
-
 - (NSString *)trackingStatusToString:(ATTrackingManagerAuthorizationStatus)status {
     switch (status) {
         case ATTrackingManagerAuthorizationStatusNotDetermined:
