@@ -141,7 +141,12 @@
   "codegenConfig": {
     "name": "TrackingTransparencySpec",
     "type": "modules",
-    "jsSrcsDir": "src"
+    "jsSrcsDir": "src",
+    "ios": {
+      "modulesProvider": {
+        "NativeTrackingTransparency": "TrackingTransparency"
+      }
+    }
   },
   "create-react-native-library": {
     "languages": "kotlin-objc",
