@@ -1,0 +1,1 @@
+{"version":3,"names":["TrackingTransparency","getTrackingStatus","requestTrackingPermission"],"sourceRoot":"../../src","sources":["index.tsx"],"mappings":";;AAAA,OAAOA,oBAAoB,MAAM,iCAA8B;AAS/D,OAAO,eAAeC,iBAAiBA,CAAA,EAA4B;EACjE,OAAOD,oBAAoB,CAACC,iBAAiB,CAAC,CAAC;AACjD;AAEA,OAAO,eAAeC,yBAAyBA,CAAA,EAA4B;EACzE,OAAOF,oBAAoB,CAACE,yBAAyB,CAAC,CAAC;AACzD","ignoreList":[]}
