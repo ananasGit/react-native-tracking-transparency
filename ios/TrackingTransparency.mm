@@ -22,9 +22,11 @@ RCT_EXPORT_MODULE()
 - (void)getTrackingStatus:(RCTPromiseResolveBlock)resolve
                    reject:(RCTPromiseRejectBlock)reject {
     if (@available(iOS 14, *)) {
-        ATTrackingManagerAuthorizationStatus status = [ATTrackingManager trackingAuthorizationStatus];
-        NSString *statusString = [self trackingStatusToString:status];
-        resolve(statusString);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ATTrackingManagerAuthorizationStatus status = [ATTrackingManager trackingAuthorizationStatus];
+            NSString *statusString = [self trackingStatusToString:status];
+            resolve(statusString);
+        });
     } else {
         resolve(@"unavailable");
     }
@@ -33,10 +35,12 @@ RCT_EXPORT_MODULE()
 - (void)requestTrackingPermission:(RCTPromiseResolveBlock)resolve
                            reject:(RCTPromiseRejectBlock)reject {
     if (@available(iOS 14, *)) {
-        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
-            NSString *statusString = [self trackingStatusToString:status];
-            resolve(statusString);
-        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+                NSString *statusString = [self trackingStatusToString:status];
+                resolve(statusString);
+            }];
+        });
     } else {
         resolve(@"unavailable");
     }
