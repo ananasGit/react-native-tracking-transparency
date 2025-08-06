@@ -146,7 +146,8 @@
       "modulesProvider": {
         "TrackingTransparency": "TrackingTransparency"
       }
-    }
+    },
+    "android": {}
   },
   "create-react-native-library": {
     "languages": "kotlin-objc",
