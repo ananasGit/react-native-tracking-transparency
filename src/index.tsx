@@ -7,26 +7,24 @@ export type TrackingStatus =
   | 'restricted'
   | 'not-determined';
 
-export async function getTrackingStatus(): Promise<TrackingStatus> {
-  if (Platform.OS !== 'ios') return 'unavailable';
-  
+let TrackingTransparency: any = null;
+
+if (Platform.OS === 'ios') {
   try {
-    const TrackingTransparency = require('./NativeTrackingTransparency').default;
-    if (!TrackingTransparency) return 'unavailable';
-    return TrackingTransparency.getTrackingStatus() as Promise<TrackingStatus>;
-  } catch {
-    return 'unavailable';
+    TrackingTransparency = require('./NativeTrackingTransparency').default;
+  } catch (e) {
+    console.warn('TrackingTransparency native module not available:', e);
   }
 }
 
-export async function requestTrackingPermission(): Promise<TrackingStatus> {
-  if (Platform.OS !== 'ios') return 'unavailable';
+export async function getTrackingStatus(): Promise<TrackingStatus> {
+  if (Platform.OS !== 'ios' || !TrackingTransparency) return 'unavailable';
   
-  try {
-    const TrackingTransparency = require('./NativeTrackingTransparency').default;
-    if (!TrackingTransparency) return 'unavailable';
-    return TrackingTransparency.requestTrackingPermission() as Promise<TrackingStatus>;
-  } catch {
-    return 'unavailable';
-  }
+  return TrackingTransparency.getTrackingStatus() as Promise<TrackingStatus>;
+}
+
+export async function requestTrackingPermission(): Promise<TrackingStatus> {
+  if (Platform.OS !== 'ios' || !TrackingTransparency) return 'unavailable';
+  
+  return TrackingTransparency.requestTrackingPermission() as Promise<TrackingStatus>;
 }
