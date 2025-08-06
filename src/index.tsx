@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-import TrackingTransparency from './NativeTrackingTransparency';
 
 export type TrackingStatus = 
   | 'unavailable'
@@ -10,10 +9,24 @@ export type TrackingStatus =
 
 export async function getTrackingStatus(): Promise<TrackingStatus> {
   if (Platform.OS !== 'ios') return 'unavailable';
-  return TrackingTransparency.getTrackingStatus() as Promise<TrackingStatus>;
+  
+  try {
+    const TrackingTransparency = require('./NativeTrackingTransparency').default;
+    if (!TrackingTransparency) return 'unavailable';
+    return TrackingTransparency.getTrackingStatus() as Promise<TrackingStatus>;
+  } catch {
+    return 'unavailable';
+  }
 }
 
 export async function requestTrackingPermission(): Promise<TrackingStatus> {
   if (Platform.OS !== 'ios') return 'unavailable';
-  return TrackingTransparency.requestTrackingPermission() as Promise<TrackingStatus>;
+  
+  try {
+    const TrackingTransparency = require('./NativeTrackingTransparency').default;
+    if (!TrackingTransparency) return 'unavailable';
+    return TrackingTransparency.requestTrackingPermission() as Promise<TrackingStatus>;
+  } catch {
+    return 'unavailable';
+  }
 }
